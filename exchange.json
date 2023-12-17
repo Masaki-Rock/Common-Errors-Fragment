@@ -1,0 +1,13 @@
+{
+  "main": "common-errors-fragment.raml",
+  "name": "Common Errors Fragment",
+  "groupId": "a87d3fd4-6787-489a-a139-cfc2b62ccae8",
+  "assetId": "common-errors-fragment",
+  "version": "1.0.0",
+  "classifier": "raml-fragment",
+  "tags": [],
+  "descriptorVersion": "1.0.0",
+  "organizationId": "a87d3fd4-6787-489a-a139-cfc2b62ccae8",
+  "apiVersion": "v1",
+  "originalFormatVersion": "1.0"
+}

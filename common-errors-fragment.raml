@@ -1,0 +1,188 @@
+#%RAML 1.0 Library
+usage: This library defines the common error response trait and type
+
+types:
+  ErrorModel:
+    properties:
+      X-Correlation-Id: 
+        type: string
+        example: "bad0e5b0-9191-11eb-a0b3-36548d51aeee"
+        required: true
+      timestamp:
+        type: datetime
+        example: 2023-12-12T16:41:41.090Z
+        format: rfc3339
+      code:
+        type: string
+        example: "Mule-E-P001"
+        required: true
+      titile:
+        type: string
+        example: "顧客情報取得中にエラーが発生しました。"
+        required: true
+      details:
+        type: string
+        example: "リクエストパラメータに名前項目がありません。"
+        required: true
+
+traits:
+  ErrorResponses:
+    responses:
+      400:
+        description: リクエスト情報に不備がある場合に返却する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            examples:
+              example1: !include examples/error-400-example.json
+      401:
+        description: 有効な認証資格が不足している場合に返却する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Unauthorized",
+                "details": "エラー詳細"
+              }
+      403:
+        description: 有効な認証資格が不足している場合に返却する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Unauthorized",
+                "details": "エラー詳細"
+              }
+      404:
+        description: サーバがリクエストされたリソースをみつけることできない場合に返却する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            examples:
+              example1: !include examples/error-404-example.json
+      405:
+        description: リクエストメソッドをサーバ側で認識しているが対象のリソースでは対応してないことを通知する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Method Not Allowed",
+                "details": "エラー詳細"
+              }
+      406:
+        description: サーバがリクエストの用意したコンテンツネゴシエーションヘッダーで定義された受付可能な値に一致するレスポンスが生成できないことを通知する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Not Acceptable",
+                "details": "エラー詳細"
+              }
+      409:
+        description: リクエストが現在のサーバの状態と競合したことを通知する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Conflict",
+                "details": "エラー詳細"
+              }
+      415:
+        description: ペイロードフォーマットがサポートされていないフォーマットであるためサーバがリクエストの受け入れ意を拒否したことを通知する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Unsupported Media Type",
+                "details": "エラー詳細"
+              }
+      429:
+        description: ユーザが指定された時間内に多くのリクエストを送信した場合にエラー情報を返却する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "Too Many Requests",
+                "details": "エラー詳細"
+              }
+      500:
+        description: サーバがよきしない条件に遭遇しエラーが発生した場合にエラー情報を返却する。
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            examples:
+              example1: !include examples/error-500-example.json
+      501:
+        description: サーバがリクエストのHTTPメソッドに対応するサービスを提供していない場合に返却する
+        headers:
+          Content-Type:
+            description: クライアントとサーバ間で送受信されるデータの形式を指定する。
+        body:
+          application/json:
+            type: ErrorModel
+            example: |
+              {
+                "X-Correlation-Id": "a89bc77-8988txt-bccfx98",
+                "timestamp": "2023-12-12T16:41:41.090Z",
+                "code": "MLE-E-99998",
+                "titile": "NotImplemented",
+                "details": "エラー詳細"
+              }
